@@ -234,6 +234,7 @@ namespace eClaim.Data
                             // Read values.
                             claim.ClaimID = Convert.ToInt32(dr["ClaimID"]);
                             claim.EmpName = base.GetDataValue<string>(dr, "EmpName");
+                            claim.TotalAmount = base.GetDataValue<decimal>(dr, "TotalAmount");
                             claim.DateCreated = base.GetDataValue<DateTime>(dr, "DateCreated");
                             claim.DateSubmitted = base.GetDataValue<DateTime>(dr, "DateSubmitted");
                             claim.DateApproved = base.GetDataValue<DateTime>(dr, "Dateapproved");

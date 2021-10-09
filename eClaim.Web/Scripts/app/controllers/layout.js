@@ -15,8 +15,8 @@
         function initialize() {
             vm.token = JSON.parse(sessionStorage.getItem('authenticated'));
 
-            if (!token) {
-                window.location.href = navigatepage('Login');
+            if (!vm.token) {
+                window.location.href = 'Login';
                 return;
             }
         }

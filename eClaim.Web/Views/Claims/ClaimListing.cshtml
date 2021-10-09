@@ -33,6 +33,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col" ng-hide="claimListingController.token.isApprover=='False' ">Name</th>
+                <th scope="col">Total Amount</th>
                 <th scope="col">Date Created</th>
                 <th scope="col">Date Submitted</th>
                 <th scope="col">Date Approved/Rejected</th>
@@ -43,7 +44,8 @@
             <tr ng-repeat="claim in claimListingController.claimListing">
                 <th scope="row">{{$index+1}}</th>
                 <td ng-hide="claimListingController.token.isApprover=='False'">{{claim.empName}}</td>
-                <td><a href="" ng-click="claimListingController.loadClaim(claim.claimID)">{{claim.dateCreated| date : "dd-MM-yyyy hh:mm a"}}</a></td>
+                <th><a href="" ng-click="claimListingController.loadClaim(claim.claimID)">{{claim.totalAmount}}</a></th>
+                <td>{{claim.dateCreated| date : "dd-MM-yyyy hh:mm a"}}</td>
                 <td><span ng-hide="claimListingController.isDateTimeMinValue(claim.dateSubmitted)">{{claim.dateSubmitted| date : "dd-MM-yyyy hh:mm a"}}</span></td>
                 <td><span ng-hide="claimListingController.isDateTimeMinValue(claim.dateApproved)">{{claim.dateApproved| date : "dd-MM-yyyy hh:mm a"}}</span></td>
                 <td>{{claim.status}}</td>

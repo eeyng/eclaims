@@ -49,7 +49,7 @@
                
             }
             else {
-                vm.claim.status = "Draft";
+                vm.claim.status = "Drafted";
                 vm.claim.empName = vm.token.name;
                 vm.claim.employeeID = vm.token.employeeID;
                 vm.claim.claimDetails = [];

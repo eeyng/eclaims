@@ -71,29 +71,33 @@ namespace eClaim.Process
 
         public double CheckRate(ClaimDetail claimDetail)
         {
+            double result = 0;
 
             ExchangeRateReponse exchangeRateReponse = new ExchangeRateReponse();
 
-            double result = 0;
-            string url = System.Configuration.ConfigurationManager.AppSettings.Get("fixerurl") + "&base=EUR&symbols=" + claimDetail.Currency;
-                url = url.Replace("{date}", claimDetail.TransactionDate.ToString("yyyy-MM-dd"));
-            base.Url = url;
-
-            try
+            if(!string.IsNullOrEmpty(claimDetail.Currency))
             {
-                using (var response = base.HTTPClient.SendAsync(base.InitializeRequest(HttpMethod.Get, "")).Result)
+                string url = System.Configuration.ConfigurationManager.AppSettings.Get("fixerurl") + "&base=" + claimDetail.Currency + "&symbols=MYR";
+                url = url.Replace("{date}", claimDetail.TransactionDate.ToString("yyyy-MM-dd"));
+                base.Url = url;
+
+                try
+                {
+                    using (var response = base.HTTPClient.SendAsync(base.InitializeRequest(HttpMethod.Get, "")).Result)
+                    {
+
+                        exchangeRateReponse = base.VerifyStatusCodeAsync<ExchangeRateReponse>(response);
+                        //exchangeRateReponse.ConversionRates = JsonConvert.DeserializeObject<ConversionRate>(exchangeRateReponse.rates);
+                    }
+                    //if (exchangeRateReponse.ConversionRates.CurrencyRate.Count > 0)
+                    //{
+                    result = Convert.ToDouble(exchangeRateReponse.rates["MYR"]);
+                    //}
+                }
+                catch (Exception ex)
                 {
 
-                    exchangeRateReponse = base.VerifyStatusCodeAsync<ExchangeRateReponse>(response);
-                    //exchangeRateReponse.ConversionRates = JsonConvert.DeserializeObject<ConversionRate>(exchangeRateReponse.rates);
                 }
-                //if (exchangeRateReponse.ConversionRates.CurrencyRate.Count > 0)
-                //{
-                    result = Convert.ToDouble(exchangeRateReponse.rates[claimDetail.Currency]);
-                //}
-            }
-            catch(Exception ex)
-            {
 
             }
          
