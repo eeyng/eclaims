@@ -41,7 +41,7 @@ namespace eClaim.Entities
 
     public enum Status
     {
-        Draft = 0,
+        Drafted = 0,
         Submitted = 1, 
         Approved = 2, 
         Rejected = 3

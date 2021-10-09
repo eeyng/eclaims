@@ -20,7 +20,7 @@
         vm.token = {};
 
         vm.status = [
-            { name: 'Draft', value:0, checked: true },
+            { name: 'Drafted', value:0, checked: true },
             { name: 'Submitted', value: 1, checked: true },
             { name: 'Approved', value: 2, checked: true },
             { name: 'Rejected', value: 3, checked: true }

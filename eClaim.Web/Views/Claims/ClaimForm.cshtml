@@ -6,50 +6,60 @@
       ng-controller="ClaimController as claimController"
       ng-init="claimController.initialize()">
     <div class="container">
-        <div class="row">
+        <div class="col">
             <h1>{{claimController.claimTitle}}</h1>
         </div>
-        <div class="form-group row">
+
+
+        <div class="form-group row  center-block">
             <span style="color:#ff6262;text-align:left" align="left" ng-bind="claimController.message"></span>
 
         </div>
 
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
+            <label for="name" class="col-sm-3 col-form-label">Name</label>
+            <div class="col-sm-9">
                 {{claimController.token.name}}
             </div>
         </div>
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Branch Code</label>
-            <div class="col-sm-10">
+            <label for="name" class="col-sm-3 col-form-label">Branch Code</label>
+            <div class="col-sm-9">
                 {{claimController.token.branchCode}}
             </div>
         </div>
-
-
+        <hr />
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Bank Code</label>
-            <div class="col-sm-10">
-                <input type="text" ng-disabled="claimController.claim.status != 'Draft'" class="form-control" id="name" ng-maxlength=50 ng-model="claimController.claim.bankCode">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Bank Account No.</label>
-            <div class="col-sm-10">
-                <input type="text" ng-disabled="claimController.claim.status != 'Draft'" class="form-control" id="name" ng-maxlength=20 ng-model="claimController.claim.bankAccNo">
-            </div>
+            <label for="name" class="col-sm-12 col-form-label"><small>Bank Account Details ( payment will be made to this bank account)</small></label>
+
         </div>
 
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Bank Account Name</label>
-            <div class="col-sm-10">
-                <input type="text" ng-disabled="claimController.claim.status != 'Draft'" class="form-control" id="name" ng-maxlength=50 ng-model="claimController.claim.bankAccName">
+            <label for="name" class="col-sm-3 col-form-label">Bank Code /Branch Code</label>
+            <div class="col-sm-9">
+                <input type="text" ng-disabled="claimController.claim.status != 'Drafted'" class="form-control" id="name" ng-maxlength=50 ng-model="claimController.claim.bankCode">
             </div>
         </div>
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">Bank Account No.</label>
+            <div class="col-sm-9">
+                <input type="text" ng-disabled="claimController.claim.status != 'Drafted'" class="form-control" id="name" ng-maxlength=20 ng-model="claimController.claim.bankAccNo">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">Bank Account Name</label>
+            <div class="col-sm-9">
+                <input type="text" ng-disabled="claimController.claim.status != 'Drafted'" class="form-control" id="name" ng-maxlength=50 ng-model="claimController.claim.bankAccName">
+            </div>
+        </div>
+
+
+
         <hr />
 
         <div class="form-group row center-block">
+          
             <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="claimController.addExpenses()" ng-show="claimController.claim.status != 'Approved' &&claimController.claim.status != 'Rejected'  && claimController.claim.status != 'Submitted'  ">
                 Add expenses
             </button>
@@ -170,6 +180,7 @@
         </div>
 
 
+
         <table class="table table-striped" ng-show="claimController.claim.claimDetails.length>0">
             <thead>
                 <tr>
@@ -215,19 +226,19 @@
                 </tr>
             </tbody>
         </table>
-        <div  class="form-group row center-block col-md-offset-4" >
-            Total: {{claimController.claim.totalAmount}}
+        <div ng-show="claimController.claim.claimDetails.length>0" class="form-group row center-block col-md-offset-4">
+            Total Amount: {{claimController.claim.totalAmount}}
         </div>
 
-        <div class="form-group row center-block" ng-show="claimController.claim.status == '' || claimController.claim.status == 'Draft'">
+        <div class="form-group row center-block" ng-show="(claimController.claim.status == '' || claimController.claim.status == 'Drafted') &&  claimController.claim.claimDetails.length>0">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" ng-model="claimController.checked">
             <label class="form-check-label" for="flexCheckChecked">
                 I certify that the amounts claimed above were incurred on company business
             </label>
         </div>
         <div class="form-group row center-block">
-            <button class="btn btn-primary" ng-click="claimController.saveDraft()" ng-show="claimController.claim.status == '' || claimController.claim.status == 'Draft' ">Save as draft</button>
-            <button class="btn btn-primary" ng-click="claimController.submitClaim()" ng-show="claimController.claim.status == '' || claimController.claim.status == 'Draft'">Submit</button>
+            <button class="btn btn-primary" ng-click="claimController.saveDraft()" ng-show="claimController.claim.status == '' || claimController.claim.status == 'Drafted' ">Save as draft</button>
+            <button class="btn btn-primary" ng-click="claimController.submitClaim()" ng-show="(claimController.claim.status == '' || claimController.claim.status == 'Drafted') && claimController.claim.claimDetails.length>0 ">Submit</button>
             <button class="btn btn-primary" ng-click="claimController.approveRejectClaim(2)" ng-show="claimController.claim.status == 'Submitted' && claimController.claim.employeeID != claimController.token.employeeID ">Approve</button>
             <button class="btn btn-primary" ng-click="claimController.approveRejectClaim(3)" ng-show="claimController.claim.status == 'Submitted'  && claimController.claim.employeeID != claimController.token.employeeID ">Reject</button>
             <button class="btn btn-primary" ng-click="claimController.back()">Back</button>

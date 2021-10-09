@@ -52,7 +52,7 @@ namespace eClaim.Business
             try
             {
                 if (string.IsNullOrEmpty(claimDetail.SerialNo))
-                    throw new ApplicationException("Please enter reference number");
+                    throw new ApplicationException("Please enter serial number");
 
                 if (claimDetail.TransactionDate.Year==1)
                     throw new ApplicationException("Please enter transaction date");
@@ -66,8 +66,14 @@ namespace eClaim.Business
                 if (string.IsNullOrEmpty(claimDetail.Currency))
                     throw new ApplicationException("Please select currency");
 
-                if (claimDetail.Amount  == 0)
+                if (claimDetail.Amount == 0)
                     throw new ApplicationException("Please enter amount");
+
+                if (claimDetail.Amount < 0)
+                    throw new ApplicationException("Amount must greater than 0");
+
+                if (claimDetail.GST < 0)
+                    throw new ApplicationException("GST must be positive value");
             }
             catch (ApplicationException ex)
             {
@@ -119,7 +125,7 @@ namespace eClaim.Business
                 ClaimDAC claimDAC = new ClaimDAC();
                 ClaimDetailDAC claimdetailDAC = new ClaimDetailDAC();
                 ValidateClaim(claim);
-                claim.Status = Status.Draft;
+                claim.Status = Status.Drafted;
 
                 if (claim.ClaimID == 0)
                 {

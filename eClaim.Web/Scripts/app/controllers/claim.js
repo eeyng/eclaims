@@ -77,6 +77,12 @@
          
         }
         function refreshTotalAmt() {
+            if (isNaN(vm.draftDetail.gST))
+                vm.draftDetail.gST = 0;
+
+            if (isNaN(vm.draftDetail.amount))
+                vm.draftDetail.amount = 0;
+
             vm.draftDetail.totalAmt = vm.draftDetail.exchangeRate * (parseFloat(vm.draftDetail.amount) + parseFloat(vm.draftDetail.gST));
             if (isNaN(vm.draftDetail.totalAmt))
                 vm.draftDetail.totalAmt = 0;
@@ -114,14 +120,17 @@
             });
         }
         function addDetail() {
+            if (vm.draftDetail.exchangeRate == 0) {
+                checkrate();
+            }
+            else {
 
-           
                 ClaimProcess.validateClaimDetail(vm.token.access_token, vm.draftDetail).then(function (data) {
                     if (vm.expensesTitle == "New Expenses") {
                         var claimdetail = JSON.parse(JSON.stringify(vm.draftDetail));
                         claimdetail.status = 1;
                         vm.claim.claimDetails.push(claimdetail);
-                   
+
                     }
                     refreshGrandTotal();
                     $('#expensesModal').modal('hide');
@@ -130,6 +139,8 @@
                 }).finally(function () {
                     usSpinnerService.stop('spinner-1');
                 });
+            }
+           
         }
         function addExpenses() {
             vm.draftDetail = {};
