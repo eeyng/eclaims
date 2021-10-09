@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div ng-app="eClaim"
+     ng-controller="ClaimListingController as claimListingController"
+     ng-init="claimListingController.initialize()">
+
+    <div class="container">
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">Status</label>
+            <div class="col-sm-9">
+                <label ng-repeat="status in claimListingController.status">
+                    <input type="checkbox" name="{{status.name}}" id="{{status.value}}" ng-model="status.checked">
+                    <label for="{{status.name}}">{{status.name}}</label>
+                </label>
+            </div>
+        </div>
+      
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label"></label>
+            <a class="btn btn-primary" href="" ng-click="claimListingController.getClaimList()">Search</a>
+        </div>
+    </div>
+    <hr />
+    <a class="btn btn-primary" href="" ng-click="claimListingController.newclaim()">New Claim</a>
+    <div class="container">
+        <br />
+        <div class="form-group row">
+            Showing {{claimListingController.claimListing.length}} record(s)
+        </div>
+    </div>
+     
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" ng-hide="claimListingController.token.isApprover=='False' ">Name</th>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Date Submitted</th>
+                    <th scope="col">Date Approved/Rejected</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="claim in claimListingController.claimListing">
+                    <th scope="row">{{$index+1}}</th>
+                    <td ng-hide="claimListingController.token.isApprover=='False'">{{claim.empName}}</td>
+                    <td><a href="" ng-click="claimListingController.loadClaim(claim.claimID)">{{claim.dateCreated| date : "dd-MM-yyyy hh:mm a"}}</a></td>
+                    <td><span ng-hide="claimListingController.isDateTimeMinValue(claim.dateSubmitted)">{{claim.dateSubmitted| date : "dd-MM-yyyy hh:mm a"}}</span></td>
+                    <td><span ng-hide="claimListingController.isDateTimeMinValue(claim.dateApproved)">{{claim.dateApproved| date : "dd-MM-yyyy hh:mm a"}}</span></td>
+                    <td>{{claim.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

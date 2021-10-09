@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Hosts.Web", "eClaim.Hosts.Web\eClaim.Hosts.Web.csproj", "{7C6B3CC3-4366-4CC5-974F-4AAD34F8807B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Services.Http", "eClaim.Services.Http\eClaim.Services.Http.csproj", "{AE328842-1A04-46DA-8AD5-FAE02FCD4138}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Entities", "eClaim.Entities\eClaim.Entities.csproj", "{7FDE2883-6F79-4D6E-9FAB-EDBE706BD2D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Data", "eClaim.Data\eClaim.Data.csproj", "{2658AC06-1735-4E33-B2D7-E2BB1E0E7894}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Shared", "eClaim.Shared\eClaim.Shared.csproj", "{F230ED54-199A-4A92-8EA4-850D73DEA675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Business", "eClaim.Business\eClaim.Business.csproj", "{82EE63CD-9ECD-4F3E-88FB-98AD722DF77E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Process", "eClaim.Process\eClaim.Process.csproj", "{9F138757-067B-4852-9C6F-429F029873F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eClaim.Web", "eClaim.Web\eClaim.Web.csproj", "{9700ECD5-83C2-4761-8D0E-794F8D294A62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C6B3CC3-4366-4CC5-974F-4AAD34F8807B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C6B3CC3-4366-4CC5-974F-4AAD34F8807B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C6B3CC3-4366-4CC5-974F-4AAD34F8807B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C6B3CC3-4366-4CC5-974F-4AAD34F8807B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE328842-1A04-46DA-8AD5-FAE02FCD4138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE328842-1A04-46DA-8AD5-FAE02FCD4138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE328842-1A04-46DA-8AD5-FAE02FCD4138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE328842-1A04-46DA-8AD5-FAE02FCD4138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDE2883-6F79-4D6E-9FAB-EDBE706BD2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDE2883-6F79-4D6E-9FAB-EDBE706BD2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDE2883-6F79-4D6E-9FAB-EDBE706BD2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDE2883-6F79-4D6E-9FAB-EDBE706BD2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2658AC06-1735-4E33-B2D7-E2BB1E0E7894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2658AC06-1735-4E33-B2D7-E2BB1E0E7894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2658AC06-1735-4E33-B2D7-E2BB1E0E7894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2658AC06-1735-4E33-B2D7-E2BB1E0E7894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F230ED54-199A-4A92-8EA4-850D73DEA675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F230ED54-199A-4A92-8EA4-850D73DEA675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F230ED54-199A-4A92-8EA4-850D73DEA675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F230ED54-199A-4A92-8EA4-850D73DEA675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82EE63CD-9ECD-4F3E-88FB-98AD722DF77E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82EE63CD-9ECD-4F3E-88FB-98AD722DF77E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82EE63CD-9ECD-4F3E-88FB-98AD722DF77E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82EE63CD-9ECD-4F3E-88FB-98AD722DF77E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F138757-067B-4852-9C6F-429F029873F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F138757-067B-4852-9C6F-429F029873F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F138757-067B-4852-9C6F-429F029873F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F138757-067B-4852-9C6F-429F029873F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9700ECD5-83C2-4761-8D0E-794F8D294A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9700ECD5-83C2-4761-8D0E-794F8D294A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9700ECD5-83C2-4761-8D0E-794F8D294A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9700ECD5-83C2-4761-8D0E-794F8D294A62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A73347C9-5BA6-4F1A-88C7-292FB4E10260}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+	EndGlobalSection
+EndGlobal

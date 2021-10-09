@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body  ng-app="eClaim"
+      ng-controller="LayoutController as layoutController"
+      ng-init="layoutController.initialize()">
+    <div>
+        Hi,{{layoutController.token.name}}
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/scripts")
+
+</body>
+</html>

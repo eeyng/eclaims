@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="fixed-left login-page"
+      ng-app="eClaim"
+      ng-controller="LoginController as loginController"
+      ng-init="loginController.initialize()">
+
+    <div class="wrapper fadeInDown">
+        <span us-spinner="{radius:30, width:3, length: 5}" spinner-key="spinner-1"></span>
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <p></p>
+                Welcome to e-Claim System
+
+            </div>
+
+            <!-- Login Form -->
+            <form name="loginForm" ng-submit="loginForm.$valid && loginController.login()" novalidate>
+                <span style="color:#ff6262;text-align:left" align="left" ng-bind="loginController.message"></span>
+
+                <input type="text" class="fadeIn second" name="txtusername" placeholder="EMAIL" maxlength="30" required
+                       ng-model="loginController.employee.empEmail">
+                <div ng-show="loginForm.$submitted || loginForm.txtusername.$touched">
+                    <span class="text-danger" ng-show="loginForm.txtusername.$invalid">The email field is required.</span>
+                </div>
+
+                <input name="txtpassword" class="fadeIn third" placeholder="PASSWORD" type="password" maxlength="30" required
+                       ng-model="loginController.employee.empPass">
+                <div ng-show="loginForm.$submitted || loginForm.txtpassword.$touched">
+                    <span id="ucpassword_ctl01" class="text-danger" ng-show="loginForm.txtpassword.$invalid">The password field is required.</span>
+                </div>
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/scripts")
+
+</body>
+</html>
