@@ -3,9 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace eClaim.Process
 {
@@ -81,22 +83,22 @@ namespace eClaim.Process
                 url = url.Replace("{date}", claimDetail.TransactionDate.ToString("yyyy-MM-dd"));
                 base.Url = url;
 
-                try
+                using (var response = base.HTTPClient.SendAsync(base.InitializeRequest(HttpMethod.Get, "")).Result)
                 {
-                    using (var response = base.HTTPClient.SendAsync(base.InitializeRequest(HttpMethod.Get, "")).Result)
+
+                    exchangeRateReponse = base.VerifyStatusCodeAsync<ExchangeRateReponse>(response);
+                    if (exchangeRateReponse.success == true)
+                        result = Convert.ToDouble(exchangeRateReponse.rates["MYR"]);
+                    else
                     {
+                        var httpError = new HttpResponseMessage()
+                        {
+                            StatusCode = (HttpStatusCode)422,
+                            ReasonPhrase = "Exchange rate not available"
+                        };
 
-                        exchangeRateReponse = base.VerifyStatusCodeAsync<ExchangeRateReponse>(response);
-                        //exchangeRateReponse.ConversionRates = JsonConvert.DeserializeObject<ConversionRate>(exchangeRateReponse.rates);
+                        throw new HttpResponseException(httpError);
                     }
-                    //if (exchangeRateReponse.ConversionRates.CurrencyRate.Count > 0)
-                    //{
-                    result = Convert.ToDouble(exchangeRateReponse.rates["MYR"]);
-                    //}
-                }
-                catch (Exception ex)
-                {
-
                 }
 
             }

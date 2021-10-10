@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace eClaim.Web.Controllers.API
 {
+    [Authorize]
     [System.Web.Http.RoutePrefix("api/claim")]
     public class ClaimController : ApiController
     {

@@ -120,7 +120,7 @@
             });
         }
         function addDetail() {
-            
+            vm.expMessage = "";
             ClaimProcess.checkrate(vm.token.access_token, vm.draftDetail).then(function (data) {
                 vm.draftDetail.exchangeRate = data;
                 refreshTotalAmt();
@@ -140,7 +140,7 @@
                     usSpinnerService.stop('spinner-1');
                 });
             }).catch(function (error) {
-                vm.message = error.data;
+                vm.expMessage = error.data;
             }).finally(function () {
                 usSpinnerService.stop('spinner-1');
             });
@@ -151,11 +151,13 @@
         }
         function addExpenses() {
             vm.draftDetail = {};
+            vm.expMessage = "";
             vm.expensesTitle = "New Expenses";
             $('#expensesModal').modal('show');
         }
         function editExpenses(detail) {
             vm.draftDetail = detail;
+            vm.expMessage = "";
             vm.expensesTitle = "Edit Expenses";
             $('#expensesModal').modal('show');
         }

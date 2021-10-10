@@ -10,19 +10,11 @@ namespace eClaim.Web.Controllers
     {
         public ActionResult ClaimListing()
         {
-            //if (!HttpContext.User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Login", "Home");
-            //}
             return View();
         }
 
         public ActionResult ClaimForm()
         {
-            //if (!HttpContext.User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Login", "Home");
-            //}
             return View();
         }
     }
