@@ -19,13 +19,19 @@
         <div class="form-group row">
             <label for="name" class="col-sm-3 col-form-label">Name</label>
             <div class="col-sm-9">
-                {{claimController.token.name}}
+                {{claimController.claim.empName}}
             </div>
         </div>
         <div class="form-group row">
             <label for="name" class="col-sm-3 col-form-label">Branch Code</label>
             <div class="col-sm-9">
                 {{claimController.token.branchCode}}
+            </div>
+        </div>
+        <div class="form-group row" ng-show="claimController.claim.status == 'Approved' || claimController.claim.status == 'Rejected'">
+            <label for="name" class="col-sm-3 col-form-label">{{claimController.claim.status}} by </label>
+            <div class="col-sm-9">
+                {{claimController.claim.approverName}}
             </div>
         </div>
         <hr />
@@ -59,7 +65,7 @@
         <hr />
 
         <div class="form-group row center-block">
-          
+
             <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="claimController.addExpenses()" ng-show="claimController.claim.status != 'Approved' &&claimController.claim.status != 'Rejected'  && claimController.claim.status != 'Submitted'  ">
                 Add expenses
             </button>
@@ -90,7 +96,7 @@
                             <div class="form-group row">
                                 <label for="trxdate" class="col-sm-3 col-form-label">*Transaction Date</label>
                                 <div class="col-sm-9">
-                                    <input type="date" id="trxdate" name="trip-start" ng-change="claimController.checkrate()" class="form-control"
+                                    <input type="date" id="trxdate" name="trip-start" value="{{claimController.draftDetail.transactionDate}}" class="form-control"
                                            ng-model="claimController.draftDetail.transactionDate">
                                 </div>
                             </div>
@@ -132,36 +138,36 @@
                             <div class="form-group row">
                                 <label for="name" class="col-sm-3 col-form-label">*Currency</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" ng-model="claimController.draftDetail.currency" ng-change="claimController.checkrate()">
+                                    <select class="form-control" ng-model="claimController.draftDetail.currency">
                                         <option ng-repeat="currency in claimController.currencies" ng-value="currency.code" id="{{code}}" ng-click="">{{currency.code}} - {{currency.name}}
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            @*<div class="form-group row">
                                 <label for="name" class="col-sm-3 col-form-label">Exchange Rate</label>
                                 <div class="col-sm-9">
                                     {{claimController.draftDetail.exchangeRate}}
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group row">
                                 <label for="name" class="col-sm-3 col-form-label">*Amount</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="name" min="0" max="99999999" value="0" ng-blur="claimController.refreshTotalAmt()" ng-model="claimController.draftDetail.amount">
+                                    <input type="number" class="form-control" id="name" min="0" max="99999999" value="0" ng-model="claimController.draftDetail.amount">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="name" class="col-sm-3 col-form-label">*GST</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="name" min="0" value="0" max="99999999" ng-blur="claimController.refreshTotalAmt()" ng-model="claimController.draftDetail.gST">
+                                    <input type="text" class="form-control" id="name" min="0" value="0" max="99999999" ng-model="claimController.draftDetail.gst">
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            @*<div class="form-group row">
                                 <label for="name" class="col-sm-3 col-form-label">Total Amount</label>
                                 <div class="col-sm-9">
                                     {{claimController.draftDetail.totalAmt}}
                                 </div>
-                            </div>
+                            </div>*@
                             <hr />
                             <div class="form-group row">
                                 <div class="col-sm-12">
@@ -180,52 +186,54 @@
         </div>
 
 
+        <div class=" responsivetable">
+            <table class="table table-striped  " ng-show="claimController.claim.claimDetails.length>0">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr.No</th>
+                        <th scope="col">Date of Transaction</th>
+                        <th scope="col">Cost Center</th>
+                        <th scope="col">GL Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">GST</th>
+                        <th scope="col">Exchange Rate</th>
+                        <th scope="col">Total Amount(RM)</th>
+                        <td scope="col" ng-show="claimController.claim.status != 'Approved' &&claimController.claim.status != 'Rejected'  && claimController.claim.status != 'Submitted'  "></td>
+                        <td scope="col" ng-show="claimController.claim.status != 'Approved' &&claimController.claim.status != 'Rejected'  && claimController.claim.status != 'Submitted'  "></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="detail in claimController.claim.claimDetails | filter:{ status: 1}">
+                        <td>{{detail.serialNo}}</td>
+                        <td>{{detail.transactionDate| date : "dd-MM-yyyy"}}</td>
+                        <td>{{detail.costCenter}}</td>
+                        <td>
+                            {{detail.glCodeID}}
 
-        <table class="table table-striped" ng-show="claimController.claim.claimDetails.length>0">
-            <thead>
-                <tr>
-                    <th scope="col">Sr.No</th>
-                    <th scope="col">Date of Transaction</th>
-                    <th scope="col">Cost Center</th>
-                    <th scope="col">GL Code</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Currency</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">GST</th>
-                    <th scope="col">Exchange Rate</th>
-                    <th scope="col">Total Amount(RM)</th>
-                    <td scope="col" ng-show="claimController.claim.status != 'Approved' &&claimController.claim.status != 'Rejected'  && claimController.claim.status != 'Submitted'  "></td>
-                    <td scope="col" ng-show="claimController.claim.status != 'Approved' &&claimController.claim.status != 'Rejected'  && claimController.claim.status != 'Submitted'  "></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="detail in claimController.claim.claimDetails | filter:{ status: 1}">
-                    <td>{{detail.serialNo}}</td>
-                    <td>{{detail.transactionDate| date : "yyyy-MM-dd"}}</td>
-                    <td>{{detail.costCenter}}</td>
-                    <td>
-                        {{detail.glCodeID}}
+                        </td>
+                        <td>
+                            {{detail.claimDetailDesc}}
+                        </td>
+                        <td>{{detail.currency}}</td>
+                        <td>
+                            {{detail.amount}}
+                        </td>
+                        <td>
+                            {{detail.gst}}
+                        </td>
+                        <td>
+                            {{detail.exchangeRate}}
+                        </td>
+                        <td>{{detail.totalAmt}}</td>
+                        <td><button ng-click="claimController.editExpenses(detail)" class="btn btn-primary" ng-show="claimController.claim.status != 'Approved' && claimController.claim.status != 'Rejected' && claimController.claim.status != 'Submitted' ">Edit</button></td>
+                        <td><button ng-click="claimController.removeExpenses(detail)" class="btn btn-primary" ng-show="claimController.claim.status != 'Approved' && claimController.claim.status != 'Rejected' && claimController.claim.status != 'Submitted' ">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                    </td>
-                    <td>
-                        {{detail.claimDetailDesc}}
-                    </td>
-                    <td>{{detail.currency}}</td>
-                    <td>
-                        {{detail.amount}}
-                    </td>
-                    <td>
-                        {{detail.gST}}
-                    </td>
-                    <td>
-                        {{detail.exchangeRate}}
-                    </td>
-                    <td>{{detail.totalAmt}}</td>
-                    <td><button ng-click="claimController.editExpenses(detail)" class="btn btn-primary" ng-show="claimController.claim.status != 'Approved' && claimController.claim.status != 'Rejected' && claimController.claim.status != 'Submitted' ">Edit</button></td>
-                    <td><button ng-click="claimController.removeExpenses(detail)" class="btn btn-primary" ng-show="claimController.claim.status != 'Approved' && claimController.claim.status != 'Rejected' && claimController.claim.status != 'Submitted' ">Remove</button></td>
-                </tr>
-            </tbody>
-        </table>
         <div ng-show="claimController.claim.claimDetails.length>0" class="form-group row center-block col-md-offset-4">
             Total Amount: {{claimController.claim.totalAmount}}
         </div>

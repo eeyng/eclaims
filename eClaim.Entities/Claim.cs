@@ -28,6 +28,8 @@ namespace eClaim.Entities
         [DataMember]
         public int ApproverID { get; set; }
         [DataMember]
+        public string ApproverName { get; set; }
+        [DataMember]
         public DateTime  DateApproved { get; set; }
         [DataMember]
         public Decimal TotalAmount { get; set; }

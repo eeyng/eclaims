@@ -7,13 +7,14 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body  ng-app="eClaim"
+<body height="100%" style="width:100%" ng-app="eClaim"
       ng-controller="LayoutController as layoutController"
       ng-init="layoutController.initialize()">
     <div class="container">
         <h3> Hi,{{layoutController.token.name}}</b> <a href="login">Logout</a></h3>
         <hr />
-        @RenderBody()
+            @RenderBody()
+
     </div>
     @Scripts.Render("~/bundles/scripts")
 

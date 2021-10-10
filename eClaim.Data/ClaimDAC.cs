@@ -129,8 +129,10 @@ namespace eClaim.Data
         public Claim GetClaim(int claimID)
         {
             string SQL_STATEMENT =
-               "SELECT  claimID, EmployeeID, datecreated, status, BankCode,BankAccNo, BankAccName,totalamount,DateSubmitted " +
+               "SELECT  claimID, Claims.EmployeeID, a.EmpName, datecreated, status,employees.EmpName as ApproverName, BankCode,BankAccNo, BankAccName,totalamount,DateSubmitted " +
                                   "FROM Claims " +
+                                  " LEFT JOIN Employees a on a.employeeID = Claims.EmployeeID " +
+                                  " LEFT JOIN Employees on Employees.employeeID = Claims.ApproverID " +
                " WHERE claimID = @claimID ";
 
 
@@ -163,6 +165,8 @@ namespace eClaim.Data
                             claim.DateSubmitted = base.GetDataValue<DateTime>(dr, "DateSubmitted");
                             claim.Status = (Status)base.GetDataValue<byte>(dr, "Status");
                             claim.BankCode = base.GetDataValue<string>(dr, "BankCode");
+                            claim.EmpName = base.GetDataValue<string>(dr, "EmpName");
+                            claim.ApproverName = base.GetDataValue<string>(dr, "ApproverName");
                             claim.BankAccNo = base.GetDataValue<string>(dr, "BankAccNo");
                             claim.BankAccName = base.GetDataValue<string>(dr, "BankAccName");
                             claim.TotalAmount= base.GetDataValue<decimal>(dr, "TotalAmount");

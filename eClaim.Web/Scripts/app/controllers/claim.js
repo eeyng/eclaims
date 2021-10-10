@@ -6,8 +6,8 @@
         .module('eClaim')
         .controller('ClaimController', ClaimController);
 
-    ClaimController.$inject = ['ClaimProcess', 'usSpinnerService'];
-    function ClaimController(ClaimProcess, usSpinnerService) {
+    ClaimController.$inject = ['ClaimProcess', 'usSpinnerService','$filter'];
+    function ClaimController(ClaimProcess, usSpinnerService,$filter) {
         var vm = this;
 
         vm.initialize = initialize;
@@ -96,7 +96,7 @@
                     total = parseFloat(total) + parseFloat(vm.claim.claimDetails[i].totalAmt);
                 }
             }
-            vm.claim.totalAmount = total;
+            vm.claim.totalAmount = total.toFixed(2);
         }
         function getCurrency() {
             ClaimProcess.getCurrencyList(vm.token.access_token).then(function (data) {
@@ -120,10 +120,10 @@
             });
         }
         function addDetail() {
-            if (vm.draftDetail.exchangeRate == 0) {
-                checkrate();
-            }
-            else {
+            
+            ClaimProcess.checkrate(vm.token.access_token, vm.draftDetail).then(function (data) {
+                vm.draftDetail.exchangeRate = data;
+                refreshTotalAmt();
 
                 ClaimProcess.validateClaimDetail(vm.token.access_token, vm.draftDetail).then(function (data) {
                     if (vm.expensesTitle == "New Expenses") {
@@ -139,7 +139,14 @@
                 }).finally(function () {
                     usSpinnerService.stop('spinner-1');
                 });
-            }
+            }).catch(function (error) {
+                vm.message = error.data;
+            }).finally(function () {
+                usSpinnerService.stop('spinner-1');
+            });
+
+              
+
            
         }
         function addExpenses() {
@@ -153,14 +160,7 @@
             $('#expensesModal').modal('show');
         }
         function checkrate() {
-            ClaimProcess.checkrate(vm.token.access_token, vm.draftDetail).then(function (data) {
-                vm.draftDetail.exchangeRate = data;
-                refreshTotalAmt();
-            }).catch(function (error) {
-                vm.message = error.data;
-            }).finally(function () {
-                usSpinnerService.stop('spinner-1');
-            });
+         
         }
 
         function removeExpenses(claimdetail) {
